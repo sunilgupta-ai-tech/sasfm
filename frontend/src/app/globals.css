@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+:root {
+  --color-ink: #00476f;
+  --color-steel: #2e7eae;
+  --color-amber: #f6931e;
+  --color-amber-dark: #d97d0a;
+  --color-paper: #f7f7f5;
+  --color-paper-dim: #ececea;
+  --color-slate: #55606b;
+  --color-teal: #0e5c82;
+  --color-line: #dcdcd8;
+}
+
+@theme inline {
+  --color-ink: var(--color-ink);
+  --color-steel: var(--color-steel);
+  --color-amber: var(--color-amber);
+  --color-amber-dark: var(--color-amber-dark);
+  --color-paper: var(--color-paper);
+  --color-paper-dim: var(--color-paper-dim);
+  --color-slate: var(--color-slate);
+  --color-teal: var(--color-teal);
+  --color-line: var(--color-line);
+
+  --font-display: "Space Grotesk", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-serif: "Fraunces", "Iowan Old Style", "Georgia", "Times New Roman", serif;
+  --font-body: "Inter", "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "SF Mono", "Roboto Mono", ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display), sans-serif;
+}
+
+.font-mono-label {
+  font-family: var(--font-mono), monospace;
+  letter-spacing: 0.08em;
+}
+
+.font-serif-display {
+  font-family: var(--font-serif), serif;
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 2px;
+}

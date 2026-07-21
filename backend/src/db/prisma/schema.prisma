@@ -1,0 +1,136 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- Admin auth ----------
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  name         String
+  avatarUrl    String?  @map("avatar_url")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+// ---------- Services (Soft / Hard) ----------
+
+enum ServiceType {
+  SOFT
+  HARD
+}
+
+model Service {
+  id          String      @id @default(uuid())
+  type        ServiceType
+  title       String
+  description String
+  details     String
+  sortOrder   Int         @default(0) @map("sort_order")
+  published   Boolean     @default(true)
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+
+  @@index([type, sortOrder])
+  @@map("services")
+}
+
+// ---------- Our Expert Team ----------
+
+model TeamMember {
+  id        String   @id @default(uuid())
+  name      String
+  title     String
+  region    String
+  imageUrl  String   @map("image_url")
+  sortOrder Int      @default(0) @map("sort_order")
+  published Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([sortOrder])
+  @@map("team_members")
+}
+
+// ---------- Enquiries (submitted from the public Enquiry form) ----------
+
+enum EnquiryStatus {
+  NEW
+  READ
+  ARCHIVED
+}
+
+model Enquiry {
+  id        String        @id @default(uuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  status    EnquiryStatus @default(NEW)
+  createdAt DateTime      @default(now()) @map("created_at")
+
+  @@map("enquiries")
+}
+
+// ---------- Shared SEO fields, repeated on each content type ----------
+// metaTitle, metaDescription, ogImageUrl, canonicalPath, noIndex, focusKeyword
+
+model PortfolioProject {
+  id       String @id @default(uuid())
+  slug     String @unique
+  name     String
+  category String
+  location String
+  scope    String[]
+  summary  String
+  imageUrl String @map("image_url")
+
+  // SEO
+  metaTitle       String? @map("meta_title")
+  metaDescription String? @map("meta_description")
+  ogImageUrl      String? @map("og_image_url")
+  canonicalPath   String? @map("canonical_path")
+  noIndex         Boolean @default(false) @map("no_index")
+  focusKeyword    String? @map("focus_keyword")
+
+  published Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("portfolio_projects")
+}
+
+model BlogPost {
+  id       String   @id @default(uuid())
+  slug     String   @unique
+  title    String
+  excerpt  String
+  tag      String
+  readTime String   @map("read_time")
+  date     DateTime
+  imageUrl String   @map("image_url")
+  body     String[]
+
+  // SEO
+  metaTitle       String? @map("meta_title")
+  metaDescription String? @map("meta_description")
+  ogImageUrl      String? @map("og_image_url")
+  canonicalPath   String? @map("canonical_path")
+  noIndex         Boolean @default(false) @map("no_index")
+  focusKeyword    String? @map("focus_keyword")
+
+  published Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("blog_posts")
+}

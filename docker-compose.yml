@@ -1,0 +1,55 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: sasfm_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sasfm
+      POSTGRES_PASSWORD: sasfm_dev_password
+      POSTGRES_DB: sasfm
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sasfm -d sasfm"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+    container_name: sasfm_backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://sasfm:sasfm_dev_password@postgres:5432/sasfm?schema=public
+      JWT_SECRET: d101bbadf02020bbd193310948a747413190f90414cd126f89b9b2dad250092cd6bdeb62d11e3bcb8e1fa02429a897d67c05950bdaa04fdae02ae360c5cfd44e
+      PORT: 4000
+      NODE_ENV: production
+      CORS_ORIGIN: http://localhost:3000
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./backend/uploads:/app/uploads
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:4000
+    container_name: sasfm_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:4000
+      INTERNAL_API_URL: http://backend:4000
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres_data:

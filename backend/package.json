@@ -1,0 +1,41 @@
+{
+  "name": "sasfm-backend",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/server.js",
+  "prisma": {
+    "schema": "src/db/prisma/schema.prisma"
+  },
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc && prisma generate",
+    "start": "node dist/server.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:deploy": "prisma migrate deploy",
+    "prisma:studio": "prisma studio",
+    "seed": "node dist/db/seed.js",
+    "seed:dev": "tsx src/db/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.16.2",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.2.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^2.2.0",
+    "@types/node": "^20.0.0",
+    "prisma": "^6.16.2",
+    "tsx": "^4.23.0",
+    "typescript": "^5.6.0"
+  }
+}
