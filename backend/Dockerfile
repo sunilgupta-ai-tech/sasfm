@@ -21,8 +21,9 @@ COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/src/db/prisma ./src/db/prisma
 COPY package*.json ./
+COPY --from=build /app/uploads ./uploads
 
-RUN mkdir -p uploads/portfolio uploads/blog
+RUN mkdir -p uploads/portfolio uploads/blog uploads/team uploads/avatars
 
 EXPOSE 4000
 
