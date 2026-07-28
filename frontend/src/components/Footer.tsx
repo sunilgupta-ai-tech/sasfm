@@ -14,10 +14,10 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
   {
     title: "Services",
     links: [
-      { label: "Operations & Maintenance", href: "/#offerings" },
-      { label: "Workplace Experience", href: "/#offerings" },
-      { label: "Smart Building Technology", href: "/#offerings" },
-      { label: "Sector Solutions", href: "/#offerings" },
+      { label: "Hard Services", href: "/services/hard-services" },
+      { label: "Soft Services", href: "/services/soft-services" },
+      { label: "All Services", href: "/#services" },
+      { label: "Free Building Snagging", href: "/#get-started" },
     ],
   },
   {

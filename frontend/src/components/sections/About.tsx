@@ -1,9 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { values } from "@/data/content";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import VisionMissionValues from "@/components/VisionMissionValues";
 
 export default function About() {
+  const [open, setOpen] = useState(false);
+
   return (
     <section id="about" className="py-24 md:py-32 bg-paper-dim border-y border-line">
       <div className="mx-auto max-w-7xl px-6">
@@ -13,45 +16,70 @@ export default function About() {
               About Us
             </p>
             <h2 className="text-3xl md:text-4xl font-semibold text-ink leading-tight">
-              Built for portfolios that can&apos;t afford downtime.
+              One accountable partner, since 2006.
             </h2>
           </div>
-          <p className="text-slate leading-relaxed text-lg">
-            Sun and Sand Facility Management Services (SASFM) is a
-            Dubai-based group of companies delivering cleaning, MEP, civil,
-            and total facilities management — hard and soft services under
-            one accountable team. Driven by technology and sustainability,
-            we&apos;re committed to leading the regional FM industry with
-            solutions tailored to every client&apos;s needs.
-            <br />
+          <div className="text-slate leading-relaxed text-lg">
+            <p>
+              Sun and Sand Facility Management Services (SASFM) is a
+              Dubai-based group of companies delivering cleaning, MEP, civil,
+              and total facilities management — hard and soft services under
+              one accountable team.
+            </p>
+
+            <AnimatePresence initial={false}>
+              {open && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="overflow-hidden"
+                >
+                  <p className="mt-5">
+                    At SASFM, we are driven by a commitment to deliver
+                    exceptional experiences to our clients that exceed their
+                    expectations. We strive to go above and beyond by
+                    leveraging technology and embracing sustainability,
+                    ensuring that we provide the right solutions tailored to
+                    our clients&apos; needs.
+                  </p>
+                  <p className="mt-5">
+                    With a focus on long-term sustainability, we adopt a
+                    comprehensive approach to facility management. Our team
+                    actively identifies areas for cost reduction and
+                    implements new processes and upgrades that balance
+                    upfront costs with efficiency gains, all while
+                    maintaining the safety and well-being of your employees.
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-expanded={open}
+              className="mt-5 inline-flex items-center gap-3 font-semibold text-sm text-ink hover:text-amber-dark transition-colors"
+            >
+              <span
+                className={`h-px bg-amber transition-all duration-300 ${
+                  open ? "w-4" : "w-8"
+                }`}
+              />
+              {open ? "Show Less" : "Explore About"}
+            </button>
+
             <a
               href="/about"
-              className="inline-block mt-4 font-mono-label text-sm uppercase text-steel border-b border-steel/40 pb-1 hover:text-ink hover:border-ink transition-colors"
+              className="block mt-5 font-mono-label text-sm uppercase text-steel border-b border-steel/40 pb-1 hover:text-ink hover:border-ink transition-colors w-fit"
             >
               Meet our board & team →
             </a>
-          </p>
+          </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {values.map((value, i) => (
-            <motion.div
-              key={value.title}
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-            >
-              <div className="h-1 w-8 bg-amber mb-4" />
-              <h3 className="font-semibold text-ink text-base">
-                {value.title}
-              </h3>
-              <p className="mt-2 text-sm text-slate leading-relaxed">
-                {value.description}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+        <VisionMissionValues />
       </div>
     </section>
   );

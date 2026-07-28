@@ -30,23 +30,28 @@ export default function PortfolioGrid({
   );
   const visible = limit ? filtered.slice(0, limit) : filtered;
 
+  const restrictToAll = Boolean(limit);
+
   return (
     <div>
       <div className="flex flex-wrap gap-2 mb-10">
-        {(["All", ...portfolioCategories] as Filter[]).map((cat) => (
-          <button
-            key={cat}
-            type="button"
-            onClick={() => setFilter(cat)}
-            className={`font-mono-label text-[11px] uppercase px-4 py-2 border transition-colors ${
-              filter === cat
-                ? "bg-ink text-paper border-ink"
-                : "bg-transparent text-slate border-line hover:border-ink hover:text-ink"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
+        {(["All", ...portfolioCategories] as Filter[]).map((cat) => {
+          const disabled = restrictToAll && cat !== "All";
+          return (
+            <button
+              key={cat}
+              type="button"
+              onClick={() => !disabled && setFilter(cat)}
+              className={`font-mono-label text-[11px] uppercase px-4 py-2 border transition-colors ${
+                filter === cat
+                  ? "bg-ink text-paper border-ink"
+                  : "bg-transparent text-slate border-line hover:border-ink hover:text-ink"
+              }`}
+            >
+              {cat}
+            </button>
+          );
+        })}
       </div>
 
       <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -90,7 +95,6 @@ export default function PortfolioGrid({
                   <h3 className="mt-2 font-semibold text-ink group-hover:text-amber-dark transition-colors">
                     {project.name}
                   </h3>
-                  <p className="mt-1 text-sm text-slate">{project.location}</p>
                 </div>
               </Link>
             </motion.div>

@@ -83,3 +83,13 @@ h1, h2, h3, h4 {
   outline: 2px solid var(--color-amber);
   outline-offset: 2px;
 }
+
+/* Admin rich text editor (TipTap) placeholder text */
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  color: var(--color-slate);
+  opacity: 0.6;
+}

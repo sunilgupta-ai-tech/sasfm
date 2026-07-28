@@ -68,16 +68,14 @@ export default async function BlogPage() {
           tabs={[
             { label: "Overview", href: "#overview" },
             { label: "Articles", href: "#articles" },
-            { label: "Projects", href: "/portfolio" },
-            { label: "Enquiry Now", href: "/enquiry" },
           ]}
         />
 
         <div id="overview" className="mx-auto max-w-7xl px-6 pt-16">
-          <p className="text-slate max-w-2xl leading-relaxed text-lg">
-            Notes from the field on running better buildings — operations,
+          <h2 className="text-ink font-semibold max-w-2xl leading-relaxed text-lg">
+            From the field on running better buildings — operations,
             workplace experience, and smart building technology.
-          </p>
+          </h2>
         </div>
 
         <div id="articles" className="mx-auto max-w-7xl px-6 pt-10 pb-24">

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
 import { useAdminAuth } from "@/lib/admin-auth";
 import { api } from "@/lib/api";
+import { slugify } from "@/lib/slugify";
 import { revalidatePublicPaths } from "@/lib/actions/revalidate";
 import ImageUploadField from "@/components/admin/ImageUploadField";
 import FormCard from "@/components/admin/ui/FormCard";
@@ -59,12 +60,28 @@ export default function PortfolioForm({
   const [scopeInput, setScopeInput] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [slugTouched, setSlugTouched] = useState(
+    mode === "edit" && initialValues.slug !== ""
+  );
 
   function set<K extends keyof PortfolioFormValues>(
     key: K,
     value: PortfolioFormValues[K]
   ) {
     setValues((prev) => ({ ...prev, [key]: value }));
+  }
+
+  function setName(name: string) {
+    setValues((prev) => ({
+      ...prev,
+      name,
+      slug: slugTouched ? prev.slug : slugify(name),
+    }));
+  }
+
+  function setSlug(slug: string) {
+    setSlugTouched(true);
+    set("slug", slug);
   }
 
   function addScope() {
@@ -123,7 +140,7 @@ export default function PortfolioForm({
                 type="text"
                 required
                 value={values.name}
-                onChange={(e) => set("name", e.target.value)}
+                onChange={(e) => setName(e.target.value)}
                 className="mt-1.5 w-full bg-paper-dim border-0 border-b border-ink/70 px-3 py-2.5 text-sm text-ink focus:border-teal outline-none"
               />
             </label>
@@ -136,7 +153,7 @@ export default function PortfolioForm({
                 pattern="[a-z0-9]+(-[a-z0-9]+)*"
                 title="Lowercase letters, numbers, hyphens only"
                 value={values.slug}
-                onChange={(e) => set("slug", e.target.value)}
+                onChange={(e) => setSlug(e.target.value)}
                 className="mt-1.5 w-full bg-paper-dim border-0 border-b border-ink/70 px-3 py-2.5 text-sm text-ink focus:border-teal outline-none"
               />
             </label>

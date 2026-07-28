@@ -39,8 +39,6 @@ export default async function HardServicesPage() {
           tabs={[
             { label: "Overview", href: "#overview" },
             { label: "Services", href: "#services" },
-            { label: "Related Projects", href: "/portfolio" },
-            { label: "Insights & Research", href: "/blog" },
           ]}
         />
 

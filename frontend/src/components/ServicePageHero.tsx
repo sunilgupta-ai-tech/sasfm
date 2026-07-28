@@ -11,7 +11,7 @@ export default function ServicePageHero({
   imageAlt,
   tabs,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   ctaLabel: string;
   ctaHref: string;
@@ -22,9 +22,11 @@ export default function ServicePageHero({
   return (
     <div className="bg-paper-dim">
       <div className="mx-auto max-w-7xl px-6 pt-32 md:pt-40 pb-10">
-        <p className="font-mono-label text-xs uppercase text-teal mb-4">
-          {eyebrow}
-        </p>
+        {eyebrow && (
+          <p className="font-mono-label text-xs uppercase text-teal mb-4">
+            {eyebrow}
+          </p>
+        )}
         <h1 className="font-serif-display text-5xl sm:text-6xl md:text-7xl text-ink leading-[1.05]">
           {title}
         </h1>

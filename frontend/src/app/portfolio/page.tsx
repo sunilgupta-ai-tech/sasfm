@@ -29,8 +29,7 @@ export default async function PortfolioPage() {
       <Header />
       <main>
         <ServicePageHero
-          eyebrow="Our Projects"
-          title="Portfolio"
+          title="Our Projects"
           ctaLabel="Enquiry Now"
           ctaHref="/enquiry"
           imageSrc={IMAGE_SRC}
@@ -38,16 +37,14 @@ export default async function PortfolioPage() {
           tabs={[
             { label: "Overview", href: "#overview" },
             { label: "All Projects", href: "#projects" },
-            { label: "Services", href: "/services/soft-services" },
-            { label: "Insights & Research", href: "/blog" },
           ]}
         />
 
         <div id="overview" className="mx-auto max-w-7xl px-6 pt-16">
-          <p className="text-slate max-w-2xl leading-relaxed text-lg">
+          <h2 className="text-ink font-semibold max-w-2xl leading-relaxed text-lg">
             From commercial towers to residential communities, each project
             runs on the same accountable, data-driven service model.
-          </p>
+          </h2>
         </div>
 
         <div id="projects" className="mx-auto max-w-7xl px-6 pt-10 pb-24">

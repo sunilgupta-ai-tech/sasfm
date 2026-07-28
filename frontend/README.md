@@ -18,14 +18,12 @@ src/
   components/
     Header.tsx             # Sticky nav: Home / About Us / Portfolio / Blog / Enquiry Now
     Footer.tsx
-    TrustBar.tsx            # Infinite-scroll client wordmark marquee
     ScrollProgress.tsx      # Top-of-page scroll progress bar
     CountUp.tsx             # Animated count-up number (used in stats)
     PortfolioGrid.tsx       # Reusable filterable project grid
     BuildingSchematic.tsx   # Animated SVG building cross-section (legacy hero graphic)
     sections/
       Hero.tsx               # Split hero: dark panel + full-bleed video/placeholder
-      GlobalScale.tsx        # 5-column "delivery at scale" stat band
       Offerings.tsx
       SoftServices.tsx
       About.tsx

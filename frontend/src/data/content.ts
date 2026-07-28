@@ -234,50 +234,6 @@ export const blogPosts: {
   },
 ];
 
-export const scaleStats: {
-  id: string;
-  headline: string;
-  value: string;
-  label: string;
-  image: string;
-}[] = [
-  {
-    id: "workforce",
-    headline: "Tap into a self-performing FM workforce.",
-    value: "50+",
-    label: "team members",
-    image: "/images/delivery-scale/workforce.avif",
-  },
-  {
-    id: "reach",
-    headline: "We're your partner wherever you operate.",
-    value: "UAE",
-    label: "countries",
-    image: "/images/delivery-scale/reach.avif",
-  },
-  {
-    id: "savings",
-    headline: "Save money without losing efficiency.",
-    value: "24%",
-    label: "cost savings per work order",
-    image: "/images/delivery-scale/savings.avif",
-  },
-  {
-    id: "sustainability",
-    headline: "Drive sustainability goals forward.",
-    value: "12%",
-    label: "reduction in energy consumption",
-    image: "/images/delivery-scale/sustainability.avif",
-  },
-  {
-    id: "spend",
-    headline: "Every dirham accounted for.",
-    value: "100%",
-    label: "transparent cost reporting",
-    image: "/images/delivery-scale/spend.avif",
-  },
-];
-
 export const hardServices = [
   {
     id: "electrical",

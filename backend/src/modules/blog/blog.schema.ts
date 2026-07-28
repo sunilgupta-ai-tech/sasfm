@@ -15,7 +15,7 @@ export const createBlogSchema = z
   .object({
     slug: z.string().regex(slugPattern, "Slug must be lowercase, hyphen-separated"),
     title: z.string().min(1),
-    excerpt: z.string().min(1),
+    excerpt: z.string(),
     tag: z.string().min(1),
     readTime: z.string().min(1),
     date: z.coerce.date(),

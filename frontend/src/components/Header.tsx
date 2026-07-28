@@ -16,7 +16,7 @@ const NAV_LINKS: NavItem[] = [
   { label: "Home", href: "/" },
   {
     label: "Services",
-    href: "/#offerings",
+    href: "/#services",
     children: [
       { label: "Soft Services", href: "/services/soft-services" },
       { label: "Hard Services", href: "/services/hard-services" },
@@ -28,14 +28,7 @@ const NAV_LINKS: NavItem[] = [
     children: [{ label: "Blogs", href: "/blog" }],
   },
   { label: "Projects", href: "/portfolio" },
-  {
-    label: "About Us",
-    href: "/about",
-    children: [
-      { label: "Board of Directors", href: "/about/board-of-directors" },
-      { label: "Our Expert Team", href: "/about/our-expert-team" },
-    ],
-  },
+  { label: "About Us", href: "/about" },
 ];
 
 export default function Header() {
@@ -56,8 +49,7 @@ export default function Header() {
   // before the user scrolls past it. Everything else starts light. Opening
   // the mobile menu always forces the light/opaque header state too, so the
   // menu panel never has to fight a transparent bar behind it.
-  const onDarkHero =
-    (pathname === "/" || pathname === "/enquiry") && !scrolled && !menuOpen;
+  const onDarkHero = pathname === "/enquiry" && !scrolled && !menuOpen;
 
   return (
     <header
@@ -68,7 +60,16 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto max-w-7xl px-6 flex items-center justify-between">
-        <Link href="/" className="flex items-center group">
+        <Link
+          href="/"
+          onClick={() => {
+            setMenuOpen(false);
+            if (pathname === "/") {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          }}
+          className="flex items-center group"
+        >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={

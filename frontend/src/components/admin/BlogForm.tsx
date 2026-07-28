@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import { X } from "lucide-react";
 import { useAdminAuth } from "@/lib/admin-auth";
 import { api } from "@/lib/api";
+import { slugify } from "@/lib/slugify";
 import { revalidatePublicPaths } from "@/lib/actions/revalidate";
 import ImageUploadField from "@/components/admin/ImageUploadField";
 import FormCard from "@/components/admin/ui/FormCard";
@@ -12,6 +14,16 @@ import SeoFieldsSection, {
   type SeoValues,
   emptySeoValues,
 } from "@/components/admin/SeoFieldsSection";
+
+const RichTextEditor = dynamic(
+  () => import("@/components/admin/RichTextEditor"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="min-h-[10rem] rounded-md border border-line bg-paper-dim animate-pulse" />
+    ),
+  }
+);
 
 export type BlogFormValues = {
   slug: string;
@@ -52,9 +64,25 @@ export default function BlogForm({
   const [values, setValues] = useState<BlogFormValues>(initialValues);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [slugTouched, setSlugTouched] = useState(
+    mode === "edit" && initialValues.slug !== ""
+  );
 
   function set<K extends keyof BlogFormValues>(key: K, value: BlogFormValues[K]) {
     setValues((prev) => ({ ...prev, [key]: value }));
+  }
+
+  function setTitle(title: string) {
+    setValues((prev) => ({
+      ...prev,
+      title,
+      slug: slugTouched ? prev.slug : slugify(title),
+    }));
+  }
+
+  function setSlug(slug: string) {
+    setSlugTouched(true);
+    set("slug", slug);
   }
 
   function setParagraph(index: number, text: string) {
@@ -117,7 +145,7 @@ export default function BlogForm({
                 type="text"
                 required
                 value={values.title}
-                onChange={(e) => set("title", e.target.value)}
+                onChange={(e) => setTitle(e.target.value)}
                 className="mt-1.5 w-full bg-paper-dim border-0 border-b border-ink/70 px-3 py-2.5 text-sm text-ink focus:border-teal outline-none"
               />
             </label>
@@ -130,15 +158,16 @@ export default function BlogForm({
                 pattern="[a-z0-9]+(-[a-z0-9]+)*"
                 title="Lowercase letters, numbers, hyphens only"
                 value={values.slug}
-                onChange={(e) => set("slug", e.target.value)}
+                onChange={(e) => setSlug(e.target.value)}
                 className="mt-1.5 w-full bg-paper-dim border-0 border-b border-ink/70 px-3 py-2.5 text-sm text-ink focus:border-teal outline-none"
               />
             </label>
 
             <label className="block">
-              <span className="text-sm text-ink">Excerpt</span>
+              <span className="text-sm text-ink">
+                Excerpt <span className="text-slate/60">(optional)</span>
+              </span>
               <textarea
-                required
                 rows={3}
                 value={values.excerpt}
                 onChange={(e) => set("excerpt", e.target.value)}
@@ -177,13 +206,13 @@ export default function BlogForm({
               <div className="space-y-3">
                 {values.body.map((paragraph, i) => (
                   <div key={i} className="flex gap-2">
-                    <textarea
-                      rows={3}
-                      value={paragraph}
-                      onChange={(e) => setParagraph(i, e.target.value)}
-                      placeholder={`Paragraph ${i + 1}`}
-                      className="flex-1 bg-paper-dim border-0 border-b border-ink/70 px-3 py-2 text-sm text-ink focus:border-teal outline-none resize-y"
-                    />
+                    <div className="flex-1">
+                      <RichTextEditor
+                        value={paragraph}
+                        onChange={(html) => setParagraph(i, html)}
+                        placeholder={`Paragraph ${i + 1}`}
+                      />
+                    </div>
                     {values.body.length > 1 && (
                       <button
                         type="button"

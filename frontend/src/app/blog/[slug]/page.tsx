@@ -99,7 +99,7 @@ export default async function BlogPostPage({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
         />
 
-        <article className="mx-auto max-w-3xl px-6">
+        <article className="mx-auto max-w-4xl px-6">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-slate mb-8" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-ink transition-colors">
@@ -144,11 +144,13 @@ export default async function BlogPostPage({
             />
           </div>
 
-          <div className="mt-12 space-y-6 max-w-2xl">
+          <div className="mt-12 space-y-6">
             {post.body.map((paragraph, i) => (
-              <p key={i} className="text-slate leading-relaxed text-[17px]">
-                {paragraph}
-              </p>
+              <div
+                key={i}
+                className="text-slate leading-relaxed text-[17px] [&_p]:m-0 [&_strong]:font-semibold [&_strong]:text-ink [&_em]:italic [&_u]:underline [&_s]:line-through"
+                dangerouslySetInnerHTML={{ __html: paragraph }}
+              />
             ))}
           </div>
 

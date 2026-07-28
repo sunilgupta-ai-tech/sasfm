@@ -1,22 +1,23 @@
 "use client";
 
+import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
-import { useRef, useState } from "react";
-import Link from "next/link";
-import { Play, Pause, ChevronRight } from "lucide-react";
+import Modal from "@/components/Modal";
+import SnaggingRequestForm from "@/components/SnaggingRequestForm";
 
-// Drop your hosted video URL here — e.g. "/videos/hero.mp4" (place the file in
-// /public/videos/) or a full https:// URL to an externally hosted video.
-// Leave empty to show the designed placeholder graphic instead.
+const HEADLINE_LINES = [
+  { text: "The FM company that", accent: false },
+  { text: "does its own work.", accent: true },
+];
+
 const HERO_VIDEO_SRC = "/videos/hero-section.mp4";
 
-const HEADLINE_LINES = ["Integrated", "Facilities", "Management"];
-
-const quickLinks = [
-  { id: "operations", title: "Reliable Operations & Maintenance" },
-  { id: "technology", title: "Smart Building Technology" },
-  { id: "workplace", title: "Workplace & Experience" },
-  { id: "sector", title: "Sector-Specialized Delivery" },
+const trustStrip = [
+  "Since 2006",
+  "One License, All Activities",
+  "In-House Teams Only",
+  "Free Certified Snagging",
+  "24/7 Response",
 ];
 
 const container: Variants = {
@@ -33,114 +34,102 @@ const line: Variants = {
   },
 };
 
-function HeroVideo() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [playing, setPlaying] = useState(true);
-
-  function toggle() {
-    const video = videoRef.current;
-    if (!video) {
-      setPlaying((p) => !p);
-      return;
-    }
-    if (playing) {
-      video.pause();
-    } else {
-      video.play();
-    }
-    setPlaying((p) => !p);
-  }
-
+function HeroVideoCard() {
   return (
-    <div className="relative h-full w-full overflow-hidden bg-ink">
-      {HERO_VIDEO_SRC ? (
+    <motion.div
+      initial={{ opacity: 0, y: 24, rotate: -1 }}
+      animate={{ opacity: 1, y: 0, rotate: 0 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+      className="relative"
+    >
+      {/* Soft ambient glow, breathing behind the card */}
+      <motion.div
+        aria-hidden
+        animate={{ opacity: [0.35, 0.6, 0.35] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute -inset-4 rounded-[2rem] bg-amber/20 blur-2xl -z-10"
+      />
+
+      <div className="relative rounded-2xl overflow-hidden bg-ink border border-ink/15 shadow-[10px_10px_0_0_var(--color-line),0_30px_60px_-25px_rgba(16,25,46,0.35)] aspect-[4/3]">
         <video
-          ref={videoRef}
-          className="absolute inset-0 h-full w-full object-cover"
+          src={HERO_VIDEO_SRC}
           autoPlay
           muted
           loop
           playsInline
-        >
-          <source src={HERO_VIDEO_SRC} type="video/mp4" />
-        </video>
-      ) : (
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,var(--color-steel)_0%,var(--color-ink)_75%)]">
-          <svg className="absolute inset-0 h-full w-full opacity-[0.18]">
-            <pattern
-              id="hero-diag"
-              width="22"
-              height="22"
-              patternUnits="userSpaceOnUse"
-              patternTransform="rotate(35)"
-            >
-              <line x1="0" y1="0" x2="0" y2="22" stroke="var(--color-paper)" strokeWidth="1" />
-            </pattern>
-            <rect width="100%" height="100%" fill="url(#hero-diag)" />
-          </svg>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="absolute inset-0 flex items-center justify-center"
-          >
-            <div className="relative w-44 sm:w-56 aspect-[9/18] rounded-[1.4rem] border-2 border-paper/25 bg-ink/60 backdrop-blur-sm p-2">
-              <div className="h-full w-full rounded-[1rem] bg-paper/95 p-3 flex flex-col gap-2">
-                <div className="h-2 w-1/2 bg-teal/40 rounded-full" />
-                <div className="h-6 rounded-md bg-teal/25 mt-1" />
-                <div className="h-2 w-2/3 bg-ink/15 rounded-full mt-2" />
-                <div className="h-2 w-1/2 bg-ink/15 rounded-full" />
-                <div className="h-2 w-3/4 bg-ink/15 rounded-full" />
-                <div className="mt-auto h-7 rounded-md bg-amber/80" />
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      )}
-
-      <button
-        type="button"
-        onClick={toggle}
-        aria-label={playing ? "Pause background video" : "Play background video"}
-        className="absolute bottom-6 right-6 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-paper/50 text-paper hover:border-amber hover:text-amber transition-colors"
-      >
-        {playing ? (
-          <Pause className="h-4 w-4" strokeWidth={1.5} />
-        ) : (
-          <Play className="h-4 w-4" strokeWidth={1.5} />
-        )}
-      </button>
-    </div>
+          className="h-full w-full object-cover"
+        />
+      </div>
+    </motion.div>
   );
 }
 
 export default function Hero() {
-  return (
-    <section id="home" className="relative bg-ink text-paper overflow-hidden">
-      {/* left accent strip */}
-      <span className="absolute left-0 top-0 bottom-0 w-[3px] bg-amber z-20" aria-hidden />
+  const [snaggingOpen, setSnaggingOpen] = useState(false);
 
-      <div className="grid md:grid-cols-[minmax(0,42%)_1fr] min-h-[560px] md:min-h-[680px]">
-        <div className="relative z-10 flex flex-col justify-center px-8 sm:px-12 md:px-14 py-20 md:py-0">
-          <motion.p
+  return (
+    <section id="home" className="relative bg-paper-dim overflow-hidden">
+      <div className="absolute inset-0 -z-10">
+        <motion.div
+          aria-hidden
+          animate={{ x: [0, 40, 0], y: [0, 24, 0] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -left-24 top-0 h-[28rem] w-[28rem] rounded-full bg-amber/15 blur-3xl"
+        />
+        <motion.div
+          aria-hidden
+          animate={{ x: [0, -30, 0], y: [0, -20, 0] }}
+          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute right-0 bottom-0 h-[24rem] w-[24rem] rounded-full bg-teal/15 blur-3xl"
+        />
+        <svg className="absolute inset-0 h-full w-full opacity-[0.05]">
+          <pattern
+            id="hero-grid"
+            width="48"
+            height="48"
+            patternUnits="userSpaceOnUse"
+          >
+            <path d="M48 0 L0 0 0 48" fill="none" stroke="var(--color-ink)" strokeWidth="1" />
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#hero-grid)" />
+        </svg>
+      </div>
+
+      <div className="mx-auto max-w-7xl px-6 py-20 md:py-28 grid md:grid-cols-[1.1fr_1fr] gap-16 items-center">
+        <div>
+          <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-sm font-semibold tracking-wide text-paper/80 mb-6"
+            className="flex items-center gap-3 mb-6"
           >
-            Manage Properties &amp; Portfolios
-          </motion.p>
+            <span className="h-px w-6 bg-amber" />
+            <p className="font-mono-label text-xs uppercase text-amber-dark">
+              Facility Management · Dubai · Since 2006
+            </p>
+          </motion.div>
 
           <motion.h1
             variants={container}
             initial="hidden"
             animate="show"
-            className="font-serif-display text-5xl sm:text-6xl md:text-[3.6rem] leading-[1.05] text-paper"
+            className="font-display font-bold text-5xl sm:text-6xl md:text-[3.6rem] leading-[1.05] text-ink"
           >
-            {HEADLINE_LINES.map((text, i) => (
-              <span key={i} className="block overflow-hidden">
-                <motion.span variants={line} className="block">
+            {HEADLINE_LINES.map(({ text, accent }, i) => (
+              <span key={i} className="block overflow-hidden pb-1">
+                <motion.span
+                  variants={line}
+                  className={`block ${accent ? "text-amber-dark relative" : ""}`}
+                >
                   {text}
+                  {accent && (
+                    <motion.span
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 0.6, delay: 0.9, ease: "easeOut" }}
+                      className="absolute left-0 -bottom-1 h-2 w-full bg-amber/25 origin-left -z-10"
+                    />
+                  )}
                 </motion.span>
               </span>
             ))}
@@ -150,49 +139,58 @@ export default function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.55 }}
-            className="mt-8 text-lg text-paper/75 max-w-md leading-relaxed"
+            className="mt-7 text-lg text-slate max-w-lg leading-relaxed"
           >
-            We help the world&apos;s most influential organizations achieve
-            maximum uptime, reduced risk and decarbonization across
-            industries and asset types.
+            SASFM is a licensed contractor and facility management company in
+            one. Our own MEP, civil, and cleaning teams maintain your building
+            — no subcontractors, no markups, one accountable partner.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.65 }}
-            className="mt-10"
+            className="mt-10 flex flex-wrap items-center gap-4"
           >
-            <Link
-              href="/enquiry"
-              className="group relative inline-flex overflow-hidden bg-paper text-ink font-semibold text-sm px-7 py-4"
+            <button
+              type="button"
+              onClick={() => setSnaggingOpen(true)}
+              className="bg-amber text-ink font-semibold text-sm px-7 py-4 hover:bg-amber-dark hover:text-paper transition-colors"
             >
-              <span className="absolute inset-0 bg-amber translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-              <span className="relative">Get in Touch</span>
-            </Link>
+              Book a Free Building Snagging
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                document
+                  .getElementById("get-started")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+              className="border border-ink text-ink font-semibold text-sm px-7 py-4 hover:bg-ink hover:text-paper transition-colors"
+            >
+              Get an FM Quote
+            </button>
           </motion.div>
         </div>
 
-        <div className="relative min-h-[320px]">
-          <HeroVideo />
-        </div>
+        <HeroVideoCard />
       </div>
 
-      <div className="relative z-10 border-t border-paper/10 grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-paper/10">
-        {quickLinks.map((link) => (
-          <Link
-            key={link.id}
-            href="/#offerings"
-            className="group flex items-center justify-between gap-3 px-5 sm:px-7 py-5 text-sm font-semibold text-paper hover:text-amber transition-colors"
+      <div className="relative z-10 bg-ink border-t border-paper/10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 divide-x divide-y md:divide-y-0 divide-paper/10">
+        {trustStrip.map((label) => (
+          <div
+            key={label}
+            className="flex items-center justify-center gap-2.5 px-5 sm:px-6 py-5 text-xs font-mono-label uppercase text-paper/85"
           >
-            <span className="leading-snug">{link.title}</span>
-            <ChevronRight
-              className="h-4 w-4 shrink-0 text-paper/50 group-hover:text-amber group-hover:translate-x-0.5 transition-transform"
-              strokeWidth={1.5}
-            />
-          </Link>
+            <span className="h-1.5 w-1.5 shrink-0 bg-amber" aria-hidden />
+            {label}
+          </div>
         ))}
       </div>
+
+      <Modal open={snaggingOpen} onClose={() => setSnaggingOpen(false)}>
+        <SnaggingRequestForm />
+      </Modal>
     </section>
   );
 }

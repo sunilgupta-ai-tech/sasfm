@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PortfolioGrid from "@/components/PortfolioGrid";
+import PortfolioStats from "@/components/PortfolioStats";
 import { getPortfolioProjects } from "@/lib/data";
 
 export default async function Portfolio() {
@@ -14,7 +15,7 @@ export default async function Portfolio() {
               Our Projects
             </p>
             <h2 className="text-3xl md:text-4xl font-semibold text-ink leading-tight">
-              A portfolio built across every asset type.
+              Managing buildings across Dubai since 2006.
             </h2>
           </div>
           <Link
@@ -26,6 +27,10 @@ export default async function Portfolio() {
         </div>
 
         <PortfolioGrid projects={projects} limit={6} />
+
+        <div className="mt-14">
+          <PortfolioStats />
+        </div>
       </div>
     </section>
   );
