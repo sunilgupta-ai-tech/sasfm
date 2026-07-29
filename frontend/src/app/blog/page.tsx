@@ -72,10 +72,12 @@ export default async function BlogPage() {
         />
 
         <div id="overview" className="mx-auto max-w-7xl px-6 pt-16">
-          <h2 className="text-ink font-semibold max-w-2xl leading-relaxed text-lg">
-            From the field on running better buildings — operations,
-            workplace experience, and smart building technology.
-          </h2>
+          <h1 className="font-serif-display max-w-3xl leading-snug text-3xl md:text-4xl">
+            <span className="text-ink">From the field on running better buildings —{" "}</span>
+            <span className="text-steel">
+              operations, workplace experience, and smart building technology.
+            </span>
+          </h1>
         </div>
 
         <div id="articles" className="mx-auto max-w-7xl px-6 pt-10 pb-24">

@@ -41,10 +41,12 @@ export default async function PortfolioPage() {
         />
 
         <div id="overview" className="mx-auto max-w-7xl px-6 pt-16">
-          <h2 className="text-ink font-semibold max-w-2xl leading-relaxed text-lg">
-            From commercial towers to residential communities, each project
-            runs on the same accountable, data-driven service model.
-          </h2>
+          <h1 className="font-serif-display max-w-3xl leading-snug text-3xl md:text-4xl">
+            <span className="text-ink">From commercial towers to residential communities,{" "}</span>
+            <span className="text-steel">
+              each project runs on the same accountable, data-driven service model.
+            </span>
+          </h1>
         </div>
 
         <div id="projects" className="mx-auto max-w-7xl px-6 pt-10 pb-24">

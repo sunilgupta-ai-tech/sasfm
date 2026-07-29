@@ -23,10 +23,10 @@
   --color-teal: var(--color-teal);
   --color-line: var(--color-line);
 
-  --font-display: "Space Grotesk", "Avenir Next", "Segoe UI", system-ui, sans-serif;
-  --font-serif: "Fraunces", "Iowan Old Style", "Georgia", "Times New Roman", serif;
-  --font-body: "Inter", "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", "SF Mono", "Roboto Mono", ui-monospace, monospace;
+  --font-display: var(--font-space-grotesk), "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), "Iowan Old Style", "Georgia", "Times New Roman", serif;
+  --font-body: var(--font-inter), "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), "SF Mono", "Roboto Mono", ui-monospace, monospace;
 }
 
 html {
