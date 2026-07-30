@@ -6,8 +6,8 @@ import Modal from "@/components/Modal";
 import SnaggingRequestForm from "@/components/SnaggingRequestForm";
 
 const HEADLINE_LINES = [
-  { text: "The FM company that", accent: false },
-  { text: "does its own work.", accent: true },
+  { text: "The FM Company That", accent: false },
+  { text: "Does the Work In-House", accent: true },
 ];
 
 const HERO_VIDEO_SRC = "/videos/hero-section.mp4";
@@ -142,8 +142,9 @@ export default function Hero() {
             className="mt-7 text-lg text-slate max-w-lg leading-relaxed"
           >
             SASFM is a licensed contractor and facility management company in
-            one. Our own MEP, civil, and cleaning teams maintain your building
-            — no subcontractors, no markups, one accountable partner.
+            one. Our in-house MEP, civil, and cleaning teams maintain your
+            building, with no subcontractors, no markups, and one
+            accountable partner.
           </motion.p>
 
           <motion.div

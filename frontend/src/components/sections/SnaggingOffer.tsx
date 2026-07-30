@@ -44,7 +44,7 @@ export default function SnaggingOffer() {
           >
             <span className="h-px w-6 bg-amber" />
             <p className="font-mono-label text-xs uppercase text-amber-dark">
-              Free Offer
+              Complimentary Service Offer
             </p>
           </motion.div>
 
@@ -55,7 +55,7 @@ export default function SnaggingOffer() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-display font-bold text-4xl md:text-5xl leading-tight max-w-lg"
           >
-            Free building snagging by a certified team.
+            Free Building Snagging Inspection by Certified Experts
           </motion.h2>
 
           <motion.p
@@ -65,10 +65,9 @@ export default function SnaggingOffer() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-6 text-paper/75 max-w-md leading-relaxed"
           >
-            Before we take on a building — or even if you&apos;re just
-            comparing providers — our certified snagging team inspects your
-            property and hands you a documented defects report. Free of
-            charge.
+            Before managing your building, or while you are evaluating
+            providers, our certified snagging team inspects your property and
+            delivers a documented defects report completely free of charge.
           </motion.p>
 
           <motion.div

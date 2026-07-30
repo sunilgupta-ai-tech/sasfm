@@ -48,12 +48,12 @@ export default function Difference() {
           </p>
         </div>
         <h2 className="font-display font-bold text-4xl md:text-5xl text-ink leading-tight max-w-2xl">
-          One license. One team. No subcontractors.
+          One License. One Team. No Subcontractors
         </h2>
         <p className="mt-5 text-lg text-slate max-w-2xl leading-relaxed">
-          Most FM companies in Dubai win the contract, then subcontract the
-          actual work. Our trade license covers all maintenance activities —
-          so the technicians in your building are our own employees.
+          Most FM companies in Dubai secure a contract and then subcontract
+          the actual work. Our trade license covers all maintenance
+          activities, with our own technicians managing your building.
         </p>
 
         <div className="mt-14 grid md:grid-cols-2 gap-6">
