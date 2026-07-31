@@ -48,7 +48,7 @@ export default function Difference() {
           </p>
         </div>
         <h2 className="font-display font-bold text-4xl md:text-5xl text-ink leading-tight max-w-2xl">
-          One License. One Team. No Subcontractors
+          One License. One Team. No Subcontractors.
         </h2>
         <p className="mt-5 text-lg text-slate max-w-2xl leading-relaxed">
           Most FM companies in Dubai secure a contract and then subcontract

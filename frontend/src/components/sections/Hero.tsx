@@ -7,7 +7,7 @@ import SnaggingRequestForm from "@/components/SnaggingRequestForm";
 
 const HEADLINE_LINES = [
   { text: "The FM Company That", accent: false },
-  { text: "Does the Work In-House", accent: true },
+  { text: "Does the Work In‑House", accent: true },
 ];
 
 const HERO_VIDEO_SRC = "/videos/hero-section.mp4";
@@ -95,7 +95,7 @@ export default function Hero() {
         </svg>
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 py-20 md:py-28 grid md:grid-cols-[1.1fr_1fr] gap-16 items-center">
+      <div className="mx-auto max-w-7xl px-6 py-20 md:py-28 grid md:grid-cols-[1.35fr_1fr] gap-16 items-center">
         <div>
           <motion.div
             initial={{ opacity: 0, y: 8 }}
@@ -113,7 +113,7 @@ export default function Hero() {
             variants={container}
             initial="hidden"
             animate="show"
-            className="font-display font-bold text-5xl sm:text-6xl md:text-[3.6rem] leading-[1.05] text-ink"
+            className="font-display font-bold text-5xl sm:text-6xl md:text-[3.5rem] leading-[1.05] text-ink"
           >
             {HEADLINE_LINES.map(({ text, accent }, i) => (
               <span key={i} className="block overflow-hidden pb-1">

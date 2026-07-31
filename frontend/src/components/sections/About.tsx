@@ -16,7 +16,7 @@ export default function About() {
               About Us
             </p>
             <h2 className="text-3xl md:text-4xl font-semibold text-ink leading-tight">
-              One Accountable Partner Since 2006
+              One Accountable Partner Since 2006.
             </h2>
           </div>
           <div className="text-slate leading-relaxed text-lg">
