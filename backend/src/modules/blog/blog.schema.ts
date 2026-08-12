@@ -19,7 +19,7 @@ export const createBlogSchema = z
     tag: z.string().min(1),
     readTime: z.string().min(1),
     date: z.coerce.date(),
-    imageUrl: z.string().min(1),
+    imageUrl: z.string(),
     body: z.array(z.string()).min(1),
     published: z.boolean().optional(),
   })

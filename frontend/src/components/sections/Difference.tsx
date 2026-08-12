@@ -112,7 +112,7 @@ export default function Difference() {
 
             <div className="mt-10 border-t border-dashed border-line pt-6">
               <p
-                className={`leading-relaxed ${
+                className={`leading-relaxed text-center ${
                   selected === "typical"
                     ? "text-ink font-semibold"
                     : "text-slate"
@@ -168,7 +168,7 @@ export default function Difference() {
 
             <div className="mt-10 border-t border-dashed border-line pt-6">
               <p
-                className={`leading-relaxed ${
+                className={`leading-relaxed text-center ${
                   selected === "sasfm" ? "text-ink font-semibold" : "text-slate"
                 }`}
               >

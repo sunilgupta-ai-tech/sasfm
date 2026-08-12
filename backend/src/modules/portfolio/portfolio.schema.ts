@@ -25,7 +25,7 @@ export const createPortfolioSchema = z
     location: z.string().min(1),
     scope: z.array(z.string()).min(1),
     summary: z.string().min(1),
-    imageUrl: z.string().min(1),
+    imageUrl: z.string(),
     published: z.boolean().optional(),
   })
   .merge(portfolioSeoSchema);
