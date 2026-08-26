@@ -1,5 +1,6 @@
 import { prisma } from "../../db/prisma";
 import { ApiError } from "../../middlewares/error.middleware";
+import { deleteUploadedFile } from "../../lib/uploads";
 import type { CreatePortfolioInput, UpdatePortfolioInput } from "./portfolio.schema";
 
 // Public: only published projects, newest first
@@ -42,7 +43,7 @@ export async function create(input: CreatePortfolioInput) {
 }
 
 export async function update(id: string, input: UpdatePortfolioInput) {
-  await getByIdForAdmin(id);
+  const current = await getByIdForAdmin(id);
 
   if (input.slug) {
     const existing = await prisma.portfolioProject.findUnique({
@@ -53,7 +54,13 @@ export async function update(id: string, input: UpdatePortfolioInput) {
     }
   }
 
-  return prisma.portfolioProject.update({ where: { id }, data: input });
+  const updated = await prisma.portfolioProject.update({ where: { id }, data: input });
+
+  if (input.imageUrl !== undefined && input.imageUrl !== current.imageUrl) {
+    await deleteUploadedFile(current.imageUrl);
+  }
+
+  return updated;
 }
 
 export async function remove(id: string) {

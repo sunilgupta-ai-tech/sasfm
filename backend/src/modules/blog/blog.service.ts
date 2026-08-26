@@ -1,5 +1,6 @@
 import { prisma } from "../../db/prisma";
 import { ApiError } from "../../middlewares/error.middleware";
+import { deleteUploadedFile } from "../../lib/uploads";
 import type { CreateBlogInput, UpdateBlogInput } from "./blog.schema";
 
 export async function listPublished() {
@@ -35,7 +36,7 @@ export async function create(input: CreateBlogInput) {
 }
 
 export async function update(id: string, input: UpdateBlogInput) {
-  await getByIdForAdmin(id);
+  const current = await getByIdForAdmin(id);
 
   if (input.slug) {
     const existing = await prisma.blogPost.findUnique({ where: { slug: input.slug } });
@@ -44,7 +45,13 @@ export async function update(id: string, input: UpdateBlogInput) {
     }
   }
 
-  return prisma.blogPost.update({ where: { id }, data: input });
+  const updated = await prisma.blogPost.update({ where: { id }, data: input });
+
+  if (input.imageUrl !== undefined && input.imageUrl !== current.imageUrl) {
+    await deleteUploadedFile(current.imageUrl);
+  }
+
+  return updated;
 }
 
 export async function remove(id: string) {
