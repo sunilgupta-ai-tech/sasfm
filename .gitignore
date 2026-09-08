@@ -9,3 +9,5 @@ dist/
 backups/
 sasfm_dump.sql
 .gstack/
+CLAUDE.md
+AGENTS.md
