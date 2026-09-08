@@ -52,9 +52,10 @@ function ServiceCard({
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <p className="mt-4 text-sm text-slate leading-relaxed border-l-2 border-amber/40 pl-4">
-              {item.details}
-            </p>
+            <div
+              className="mt-4 text-sm text-slate leading-relaxed border-l-2 border-amber/40 pl-4 [&_p]:m-0 [&_strong]:font-semibold [&_strong]:text-ink [&_em]:italic [&_u]:underline [&_s]:line-through [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:my-2 [&_li]:mt-1"
+              dangerouslySetInnerHTML={{ __html: item.details }}
+            />
           </motion.div>
         )}
       </AnimatePresence>

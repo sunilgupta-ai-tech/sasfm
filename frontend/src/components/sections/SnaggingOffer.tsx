@@ -70,6 +70,26 @@ export default function SnaggingOffer() {
             delivers a documented defects report completely free of charge.
           </motion.p>
 
+          <motion.ul
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="mt-4 max-w-md"
+          >
+            <li className="flex items-start gap-3 text-paper/75 leading-relaxed">
+              <span
+                className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-amber"
+                aria-hidden="true"
+              />
+              <span>
+                Our certified snagging team inspects your property and
+                provides a free snagging report Dubai, detailing any defects
+                found during the inspection.
+              </span>
+            </li>
+          </motion.ul>
+
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}

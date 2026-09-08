@@ -96,7 +96,8 @@ export default async function AboutPage() {
               </p>
               <p>
                 At SASFM, we are driven by a commitment to deliver exceptional
-                experiences to our clients that exceed their expectations. We
+                experiences to our clients that exceed their expectations. As
+                an <strong className="font-semibold text-ink">in-house facility management company Dubai</strong>, we
                 strive to go above and beyond by leveraging technology and
                 embracing sustainability, ensuring that we provide the right
                 solutions tailored to our clients&apos; needs.

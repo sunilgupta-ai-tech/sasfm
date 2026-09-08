@@ -2,10 +2,21 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import { useAdminAuth } from "@/lib/admin-auth";
 import { api } from "@/lib/api";
 import { revalidatePublicPaths } from "@/lib/actions/revalidate";
 import FormCard from "@/components/admin/ui/FormCard";
+
+const RichTextEditor = dynamic(
+  () => import("@/components/admin/RichTextEditor"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="min-h-[10rem] rounded-md border border-line bg-paper-dim animate-pulse" />
+    ),
+  }
+);
 
 export type ServiceFormValues = {
   title: string;
@@ -102,17 +113,16 @@ export default function ServiceForm({
               />
             </label>
 
-            <label className="block">
+            <div className="block">
               <span className="text-sm text-ink">Expanded Details</span>
-              <textarea
-                required
-                rows={4}
-                value={values.details}
-                onChange={(e) => set("details", e.target.value)}
-                placeholder='Shown when the visitor clicks "Explore Service"'
-                className="mt-1.5 w-full bg-paper-dim border-0 border-b border-ink/70 px-3 py-2.5 text-sm text-ink focus:border-teal outline-none resize-y"
-              />
-            </label>
+              <div className="mt-1.5">
+                <RichTextEditor
+                  value={values.details}
+                  onChange={(html) => set("details", html)}
+                  placeholder='Shown when the visitor clicks "Explore Service"'
+                />
+              </div>
+            </div>
           </FormCard>
         </div>
 

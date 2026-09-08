@@ -61,7 +61,7 @@ export default function CafmApp() {
           >
             <span className="text-ink">In-House CAFM System</span>
             <br />
-            <span className="text-amber-dark">to manage properties</span>
+            <span className="text-amber-dark">to Manage Properties</span>
           </motion.h2>
 
           <motion.div
@@ -72,17 +72,19 @@ export default function CafmApp() {
             className="mt-6 space-y-4 text-slate leading-relaxed"
           >
             <p>
-              Total facility management app under{" "}
-              <span className="text-teal font-semibold">Lazim Mobile App</span>.
+              Our total facility management app, available through the{" "}
+              <span className="text-teal font-semibold">Lazim Mobile App</span>,
+              is designed to enable seamless integration between all
+              property stakeholders, including owners, tenants, owners
+              associations, property management, facility management, and
+              utility service providers.
             </p>
             <p>
-              It&apos;s designed with a vision to enable the much needed
-              integration between all property stakeholders including
-              owners, tenants, owners association, property management,
-              facility management and utility service providers. This
-              seamless integration between multiple stakeholders enriches
-              the end-user experience — owners and tenants alike enjoy a
-              hassle-free experience of residing in Dubai.
+              As a CAFM app Dubai, it brings multiple stakeholders together
+              on one platform, while also serving as an owners association
+              app Dubai that helps create a seamless and hassle-free
+              experience for owners and tenants alike when residing in
+              Dubai.
             </p>
           </motion.div>
 

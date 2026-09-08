@@ -105,7 +105,7 @@ export default function Hero() {
           >
             <span className="h-px w-6 bg-amber" />
             <p className="font-mono-label text-xs uppercase text-amber-dark">
-              Facility Management · Dubai · Since 2006
+              Facility Management Company Dubai · Since 2006
             </p>
           </motion.div>
 
